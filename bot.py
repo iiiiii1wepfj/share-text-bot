@@ -1,7 +1,8 @@
 from urllib.parse import quote
 import asyncio
+
 from pyrogram import Client, filters
-from pyrogram.types import InputTextMessageContent, InlineQueryResultArticle, Message, InlineQuery	
+from pyrogram.types import InputTextMessageContent, InlineQueryResultArticle, Message, InlineQuery, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 
 api_id = api id
 api_hash = 'api hash'
@@ -20,12 +21,15 @@ async def groupmsg(client: app, message: Message):
     elif reply and (reply.text or reply.caption):
         input_text = reply.text or reply.caption
     else:
-        errormsg = await message.reply_text("**ERROR** : `No Input found !`")
-        await asyncio.sleep(10)
-        await errormsg.delete()
-        return
+         await message.reply_text("**ERROR** : `No Input found !`",  reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("delete this message", "deleterrormessage")
+            ]]))
+         return
     await message.reply_text(share_link(input_text))
 
+@app.on_callback_query(filters.regex("^deleterrormessage"))
+async def delerrmsg(client: app, cquery: CallbackQuery):
+ await cquery.message.delete()
 
 @app.on_message(filters.private)
 async def privatensg(client: app, message: Message):
