@@ -1,5 +1,5 @@
 from urllib.parse import quote
-
+import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InputTextMessageContent, InlineQueryResultArticle, Message, InlineQuery	
 
@@ -13,10 +13,18 @@ app = Client(':memory:', api_id, api_hash, bot_token=token)
 
 @app.on_message(filters.group & filters.text & filters.command("share"))
 async def groupmsg(client: app, message: Message):
-    replied = message.reply_to_message
-    await message.reply_text(
-        share_link(replied.text if replied else message.text.split(None, 1)[1])
-    )
+    reply = message.reply_to_message
+    input_split = message.text.split(None, 1)
+    if len(input_split) == 2:
+        input_text = input_split[1]
+    elif reply and (reply.text or reply.caption):
+        input_text = reply.text or reply.caption
+    else:
+        await message.reply_text("**ERROR** : `No Input found !`")
+        await asyncio.sleep(10)
+        await message.delete()
+        return
+    await message.reply_text(share_link(input_text))
 
 
 @app.on_message(filters.private)
