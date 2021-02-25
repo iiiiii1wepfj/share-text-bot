@@ -9,7 +9,7 @@ token = "bot token"
 
 
 
-app = Client("testsharebot", api_id, api_hash, bot_token=token)
+app = Client(':memory:', api_id, api_hash, bot_token=token)
 
 @app.on_message(filters.group & filters.text & filters.command("share"))
 async def groupmsg(client: app, message: Message):
