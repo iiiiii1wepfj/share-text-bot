@@ -1,15 +1,16 @@
 from urllib.parse import quote
 
 from pyrogram import Client, filters
-from pyrogram.types import (
-    InlineQuery,
-    InlineQueryResultArticle,
-    InputTextMessageContent,
-    Message,
-)
+from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent, Message
 
-app = Client("testsharebot", api_id=1, api_hash="a", bot_token="a")
 
+api_id = api id
+api_hash = 'api hash'
+token = "bot token"
+
+
+
+app = Client("testsharebot", api_id, api_hash, bot_token=token)
 
 @app.on_message(filters.group & filters.text & filters.command("share"))
 async def groupmsg(client: app, message: Message):
