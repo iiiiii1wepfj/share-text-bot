@@ -14,7 +14,11 @@ app = Client("testsharebot", api_id=1, api_hash="a", bot_token="a")
 @app.on_message(filters.group & filters.text & filters.command("share"))
 async def groupmsg(client: app, message: Message):
     replied = message.reply_to_message
-    await message.reply_text(share_link(replied.text if replied else message.text.split(None, 1)[1])))
+    await message.reply_text(
+        share_link(
+            replied.text if replied else message.text.split(None, 1)[1]
+        )
+    )
 
 
 @app.on_message(filters.private)
