@@ -20,9 +20,9 @@ async def groupmsg(client: app, message: Message):
     elif reply and (reply.text or reply.caption):
         input_text = reply.text or reply.caption
     else:
-        await message.reply_text("**ERROR** : `No Input found !`")
+        errormsg = await message.reply_text("**ERROR** : `No Input found !`")
         await asyncio.sleep(10)
-        await message.delete()
+        await errormsg.delete()
         return
     await message.reply_text(share_link(input_text))
 
