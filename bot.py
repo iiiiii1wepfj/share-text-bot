@@ -1,8 +1,12 @@
-import asyncio
-from pyrogram import Client, filters
-from pyrogram.types import InputTextMessageContent, InlineQueryResultArticle, Message, InlineQuery
 from urllib.parse import quote
 
+from pyrogram import Client, filters
+from pyrogram.types import (
+    InlineQuery,
+    InlineQueryResultArticle,
+    InputTextMessageContent,
+    Message,
+)
 
 app = Client("testsharebot", api_id=1, api_hash="a", bot_token="a")
 
@@ -21,14 +25,17 @@ async def privatensg(client: app, message: Message):
 @app.on_inline_query()
 async def inlineshare(client: app, query: InlineQuery):
     if query.query:
-        await query.answer([InlineQueryResultArticle(
-            "click to share",
-        InputTextMessageContent(share_link(query.query))
-        )])
+        await query.answer(
+            [
+                InlineQueryResultArticle(
+                    "click to share", InputTextMessageContent(share_link(query.query))
+                )
+            ]
+        )
 
 
 def share_link(text: str) -> str:
     return "https://t.me/share/url?url=" + quote(text)
 
- 
+
 app.run()
