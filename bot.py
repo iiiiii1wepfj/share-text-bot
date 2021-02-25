@@ -4,13 +4,13 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InputTextMessageContent, InlineQueryResultArticle, Message, InlineQuery, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 
+
 api_id = api id
 api_hash = 'api hash'
 token = "bot token"
 
+app = Client(":memory:", api_id, api_hash, bot_token=token)
 
-
-app = Client(':memory:', api_id, api_hash, bot_token=token)
 
 @app.on_message(filters.group & filters.text & filters.command("share"))
 async def groupmsg(client: app, message: Message):
@@ -21,15 +21,20 @@ async def groupmsg(client: app, message: Message):
     elif reply and (reply.text or reply.caption):
         input_text = reply.text or reply.caption
     else:
-         await message.reply_text("**ERROR** : `No Input found !`",  reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton("delete this message", "deleterrormessage")
-            ]]))
-         return
+        await message.reply_text(
+            "**ERROR** : `No Input found !`",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("delete this message", "deleterrormessage")]]
+            ),
+        )
+        return
     await message.reply_text(share_link(input_text))
+
 
 @app.on_callback_query(filters.regex("^deleterrormessage"))
 async def delerrmsg(client: app, cquery: CallbackQuery):
- await cquery.message.delete()
+    await cquery.message.delete()
+
 
 @app.on_message(filters.private)
 async def privatensg(client: app, message: Message):
