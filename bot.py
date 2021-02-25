@@ -1,8 +1,7 @@
 from urllib.parse import quote
 
 from pyrogram import Client, filters
-from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent, Message
-
+from pyrogram.types import InputTextMessageContent, InlineQueryResultArticle, Message, InlineQuery	
 
 api_id = api id
 api_hash = 'api hash'
