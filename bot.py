@@ -2,8 +2,15 @@ from urllib.parse import quote
 import asyncio
 
 from pyrogram import Client, filters
-from pyrogram.types import InputTextMessageContent, InlineQueryResultArticle, Message, InlineQuery, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-
+from pyrogram.types import (
+    InputTextMessageContent,
+    InlineQueryResultArticle,
+    Message,
+    InlineQuery,
+    CallbackQuery,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+)
 
 api_id = api id
 api_hash = 'api hash'
