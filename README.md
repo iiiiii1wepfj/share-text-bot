@@ -11,4 +11,6 @@ a telegram bot to share text
  
  edit the api hash and api id and bot token in bot.py
  
+ turn on the inline mode in botfather
+ 
 python3 bot.py
