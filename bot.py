@@ -10,13 +10,26 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
     InlineKeyboardButton,
 )
-
+import os, sys
+from threading import Thread
 
 app = Client(
     ":memory:",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=TOKEN)
+
+def stop_and_restart():
+    app.stop()
+    os.system("git pull")
+    os.execl(sys.executable, sys.executable, *sys.argv)
+
+
+@app.on_message(filters.command("r") & sudofilter & ~filters.forwarded & ~filters.group & ~filters.edited & ~filters.via_bot)
+async def restart(app, message):
+    Thread(
+        target=stop_and_restart
+    ).start()
 
 @app.on_message(filters.command("start") & filters.private)
 async def start(client: app, message: Message):
