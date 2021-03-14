@@ -9,7 +9,9 @@ a telegram bot to share text
  
  pip3 install -U -r requirements.txt
  
- edit the api hash and api id and bot token in bot.py
+ edit the api hash and api id and bot token in config.py.example
+ 
+ cp config.py.example config.py
  
  turn on the inline mode in botfather
  
