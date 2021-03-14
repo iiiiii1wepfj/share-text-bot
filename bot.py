@@ -40,6 +40,10 @@ async def start(client: app, message: Message):
         ],
         [
             InlineKeyboardButton(
+                "source code",  url="https://github.com/iiiiii1wepfj/share-text-bot"),
+        ],
+        [
+            InlineKeyboardButton(
                 "📣 Channel",  url="https://t.me/TDICProjects"),
             InlineKeyboardButton(
                 "Group 👥",  url="https://t.me/TDICSupport"),
