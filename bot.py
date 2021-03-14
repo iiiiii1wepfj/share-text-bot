@@ -1,5 +1,5 @@
 from urllib.parse import quote
-
+from config import API_ID, API_HASH, TOKEN, sudofilter
 from pyrogram import Client, filters
 from pyrogram.types import (
     InputTextMessageContent,
@@ -11,11 +11,12 @@ from pyrogram.types import (
     InlineKeyboardButton,
 )
 
-api_id = api id
-api_hash = 'api hash'
-token = "bot token"
 
-app = Client(":memory:", api_id, api_hash, bot_token=token)
+app = Client(
+    ":memory:",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=TOKEN)
 
 @app.on_message(filters.command("start") & filters.private)
 async def start(client: app, message: Message):
