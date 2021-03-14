@@ -17,6 +17,24 @@ token = "bot token"
 
 app = Client(":memory:", api_id, api_hash, bot_token=token)
 
+@app.on_message(filters.command("start") & filters.private)
+async def start(client: app, message: Message):
+    await message.reply_text("Hello message.from_user.mention(), this is a bot to share text. created by @tdicprojects", reply_markup=InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(  
+                        "Inline here 🔍",
+                        switch_inline_query_current_chat=""
+                    )
+        ],
+        [
+            InlineKeyboardButton(
+                "📣 Channel",  url="https://t.me/TDICProjects"),
+            InlineKeyboardButton(
+                "Group 👥",  url="https://t.me/TDICSupport"),
+        ]
+    ]
+))
 
 @app.on_message(filters.group & filters.text & filters.command("share"))
 async def groupmsg(client: app, message: Message):
