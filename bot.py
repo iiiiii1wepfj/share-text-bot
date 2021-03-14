@@ -12,7 +12,6 @@ from pyrogram.types import (
 )
 import os, sys
 from threading import Thread
-import constants
 
 app = Client(":memory:", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
@@ -22,18 +21,7 @@ def stop_and_restart():
     os.system("git pull")
     os.execl(sys.executable, sys.executable, *sys.argv)
 
-@app.on_callback_query(filters.regex(r"^back"))
-async def backtostart(client: app, cquery: CallbackQuery):
-    await cquery.message.edit(
-        constants.start_message_text.format(cquery.from_user.mention()),
-        reply_markup=constants.start_message_reply_markup)
 
-@app.on_callback_query(filters.regex(r"^help"))
-async def helpbutton(client: app, cquery: CallbackQuery):
-    await cquery.message.edit(
-        constants.help_text,
-        reply_markup=constants.help_markup)
-    
 @app.on_message(filters.command("r") & sudofilter & ~filters.forwarded & ~filters.group & ~filters.edited & ~filters.via_bot)
 async def restart(app, message):
     Thread(
@@ -42,7 +30,26 @@ async def restart(app, message):
 
 @app.on_message(filters.command("start") & filters.private)
 async def start(client: app, message: Message):
-    await message.reply_text(constants.start_message_text.format(message.from_user.mention()), reply_markup=constants.start_message_reply_markup)
+    await message.reply_text(f"Hello {message.from_user.mention()}, this is a bot to share text. created by @tdicprojects", reply_markup=InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(  
+                        "Inline here 🔍",
+                        switch_inline_query_current_chat=""
+                    )
+        ],
+        [
+            InlineKeyboardButton(
+                "source code",  url="https://github.com/iiiiii1wepfj/share-text-bot"),
+        ],
+        [
+            InlineKeyboardButton(
+                "📣 Channel",  url="https://t.me/TDICProjects"),
+            InlineKeyboardButton(
+                "Group 👥",  url="https://t.me/TDICSupport"),
+        ]
+    ]
+))
 
 @app.on_message(filters.group & filters.text & filters.command("share"))
 async def groupmsg(client: app, message: Message):
@@ -54,8 +61,11 @@ async def groupmsg(client: app, message: Message):
         input_text = reply.text or reply.caption
     else:
         await message.reply_text(
-            constants.error_message_text,
-            reply_markup=constants.error_message_reply_markup)
+            "**ERROR** : `No Input found !`",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("delete this message", "deleterrormessage")]]
+            ),
+        )
         return
     await message.reply_text(share_link(input_text))
 
@@ -76,7 +86,7 @@ async def inlineshare(client: app, query: InlineQuery):
         await query.answer(
             [
                 InlineQueryResultArticle(
-                    constants.inline_share_message_text, InputTextMessageContent(share_link(query.query))
+                    "click to share", InputTextMessageContent(share_link(query.query))
                 )
             ]
         )
