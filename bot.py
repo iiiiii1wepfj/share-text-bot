@@ -19,7 +19,7 @@ app = Client(":memory:", api_id, api_hash, bot_token=token)
 
 @app.on_message(filters.command("start") & filters.private)
 async def start(client: app, message: Message):
-    await message.reply_text(f"{Hello message.from_user.mention()}, this is a bot to share text. created by @tdicprojects", reply_markup=InlineKeyboardMarkup(
+    await message.reply_text(f"Hello {message.from_user.mention()}, this is a bot to share text. created by @tdicprojects", reply_markup=InlineKeyboardMarkup(
     [
         [
             InlineKeyboardButton(  
