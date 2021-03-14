@@ -1,6 +1,6 @@
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-start_message_text = """Hello {}, this is a bot to share text. created by @tdicprojects"""
+start_message_text = """Hello {}, I am Share Text Bot, a bot to share text. created by @tdicprojects"""
 
 start_message_reply_markup = InlineKeyboardMarkup(
     [
@@ -34,7 +34,7 @@ error_message_reply_markup = InlineKeyboardMarkup(
 
 inline_share_message_text = """click to share"""
 
-help_text = """ **share text bot**
+help_text = """ **Share Text Bot**
 i am a bot to create a link to share text in the telegram.
 ****help****
 **Groups**
