@@ -13,11 +13,8 @@ from pyrogram.types import (
 import os, sys
 from threading import Thread
 
-app = Client(
-    ":memory:",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=TOKEN)
+app = Client(":memory:", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
+
 
 def stop_and_restart():
     app.stop()
