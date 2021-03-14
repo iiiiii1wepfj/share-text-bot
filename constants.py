@@ -30,9 +30,8 @@ error_message_text = """**ERROR** : `No Input found !`"""
 
 error_message_reply_markup = InlineKeyboardMarkup(
                 [[InlineKeyboardButton("delete this message", "deleterrormessage")]]
-            ),
-        )
-  
+            )
+
 inline_share_message_text = """click to share"""
 
 help_text = """ **share text bot**
