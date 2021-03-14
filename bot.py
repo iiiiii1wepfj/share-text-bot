@@ -1,5 +1,5 @@
 from urllib.parse import quote
-
+from config import API_ID, API_HASH, TOKEN, sudofilter
 from pyrogram import Client, filters
 from pyrogram.types import (
     InputTextMessageContent,
@@ -10,12 +10,23 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
     InlineKeyboardButton,
 )
+import os, sys
+from threading import Thread
 
-api_id = api id
-api_hash = 'api hash'
-token = "bot token"
+app = Client(":memory:", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
-app = Client(":memory:", api_id, api_hash, bot_token=token)
+
+def stop_and_restart():
+    app.stop()
+    os.system("git pull")
+    os.execl(sys.executable, sys.executable, *sys.argv)
+
+
+@app.on_message(filters.command("r") & sudofilter & ~filters.forwarded & ~filters.group & ~filters.edited & ~filters.via_bot)
+async def restart(app, message):
+    Thread(
+        target=stop_and_restart
+    ).start()
 
 @app.on_message(filters.command("start") & filters.private)
 async def start(client: app, message: Message):
