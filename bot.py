@@ -7,8 +7,6 @@ from pyrogram.types import (
     Message,
     InlineQuery,
     CallbackQuery,
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
 )
 import os, sys
 from threading import Thread
