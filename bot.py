@@ -42,6 +42,10 @@ async def restart(app, message):
 
 @app.on_message(filters.command("start") & filters.private)
 async def start(client: app, message: Message):
+ if len(message.text.split()) > 1:
+  if message.command[1] == "help":
+    await message.reply_text(constants.help_text)
+ else:
     await message.reply_text(constants.start_message_text.format(message.from_user.mention()), reply_markup=constants.start_message_reply_markup)
 
 @app.on_message(filters.group & filters.text & filters.command("share"))
