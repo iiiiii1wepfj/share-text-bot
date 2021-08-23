@@ -20,31 +20,43 @@ def stop_and_restart():
     os.system("git pull")
     os.execl(sys.executable, sys.executable, *sys.argv)
 
+
 @app.on_callback_query(filters.regex(r"^back"))
 async def backtostart(client: app, cquery: CallbackQuery):
     await cquery.message.edit(
         constants.start_message_text.format(cquery.from_user.mention()),
-        reply_markup=constants.start_message_reply_markup)
+        reply_markup=constants.start_message_reply_markup,
+    )
+
 
 @app.on_callback_query(filters.regex(r"^help"))
 async def helpbutton(client: app, cquery: CallbackQuery):
-    await cquery.message.edit(
-        constants.help_text,
-        reply_markup=constants.help_markup)
-    
-@app.on_message(filters.command("r") & sudofilter & ~filters.forwarded & ~filters.group & ~filters.edited & ~filters.via_bot)
+    await cquery.message.edit(constants.help_text, reply_markup=constants.help_markup)
+
+
+@app.on_message(
+    filters.command("r")
+    & sudofilter
+    & ~filters.forwarded
+    & ~filters.group
+    & ~filters.edited
+    & ~filters.via_bot
+)
 async def restart(app, message):
-    Thread(
-        target=stop_and_restart
-    ).start()
+    Thread(target=stop_and_restart).start()
+
 
 @app.on_message(filters.command("start") & filters.private)
 async def start(client: app, message: Message):
- if len(message.text.split()) > 1:
-  if message.command[1] == "help":
-    await message.reply_text(constants.help_text)
- else:
-    await message.reply_text(constants.start_message_text.format(message.from_user.mention()), reply_markup=constants.start_message_reply_markup)
+    if len(message.text.split()) > 1:
+        if message.command[1] == "help":
+            await message.reply_text(constants.help_text)
+    else:
+        await message.reply_text(
+            constants.start_message_text.format(message.from_user.mention()),
+            reply_markup=constants.start_message_reply_markup,
+        )
+
 
 @app.on_message(filters.group & filters.text & filters.command("share"))
 async def groupmsg(client: app, message: Message):
@@ -57,7 +69,8 @@ async def groupmsg(client: app, message: Message):
     else:
         await message.reply_text(
             constants.error_message_text,
-            reply_markup=constants.error_message_reply_markup)
+            reply_markup=constants.error_message_reply_markup,
+        )
         return
     await message.reply_text(share_link(input_text))
 
@@ -78,7 +91,8 @@ async def inlineshare(client: app, query: InlineQuery):
         await query.answer(
             [
                 InlineQueryResultArticle(
-                    constants.inline_share_message_text, InputTextMessageContent(share_link(query.query))
+                    constants.inline_share_message_text,
+                    InputTextMessageContent(share_link(query.query)),
                 )
             ]
         )
