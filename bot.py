@@ -39,7 +39,6 @@ async def helpbutton(client: app, cquery: CallbackQuery):
     & sudofilter
     & ~filters.forwarded
     & ~filters.group
-    & ~filters.edited
     & ~filters.via_bot
 )
 async def restart(app, message):
