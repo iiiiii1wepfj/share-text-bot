@@ -6,6 +6,10 @@ a telegram bot to share text
  git clone https://github.com/iiiiii1wepfj/share-text-bot.git
  
  cd share-text-bot
+
+ python3 -m venv .venv
+ 
+ source .venv/bin/activate
  
  pip3 install -U -r requirements.txt
  
