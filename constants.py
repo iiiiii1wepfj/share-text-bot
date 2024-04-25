@@ -1,4 +1,4 @@
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from hydrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 start_message_text: str = (
     """Hello {}, I am Share Text Bot, a bot to share text. created by @tdicprojects"""
