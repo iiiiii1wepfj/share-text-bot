@@ -1,7 +1,7 @@
 from urllib.parse import quote
 from config import API_ID, API_HASH, TOKEN, sudofilter
-from pyrogram import Client, filters
-from pyrogram.types import (
+from hydrogram import Client, filters
+from hydrogram.types import (
     InputTextMessageContent,
     InlineQueryResultArticle,
     Message,
